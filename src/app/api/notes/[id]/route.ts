@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import Note from "@/models/NoteModel";
-import "@/lib/connectDb";
+import "@/utils/connectDb";
 
 export async function GET(request: NextRequest, { params }: { params: { id: string } }) {
     try {
@@ -19,8 +19,9 @@ export async function GET(request: NextRequest, { params }: { params: { id: stri
 export async function PUT(request: Request, {params}: {params:{id:string}}) {
     const {id} = params;
     const {title, description} = await request.json() 
-    await Note.findOneAndUpdate({_id: id},{title, description});
+    const note = await Note.findOneAndUpdate({_id: id},{title, description});
     return NextResponse.json({
+        note,
         messgae: "note updtaed",
     },
     {status: 200}
