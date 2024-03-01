@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import Note from "@/models/NoteModel";
-import "@/lib/connectDb"
+import "@/utils/connectDb"
 
 
 export async function POST(request: NextRequest)  {

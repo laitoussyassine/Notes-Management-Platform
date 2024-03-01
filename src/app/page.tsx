@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation";
 export default function Home() {
   const router = useRouter()
   console.log(router);
-  
+
   return (
     <main className="min-h-screen">
       <h1>my list of notes</h1>
