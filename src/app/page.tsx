@@ -1,13 +1,17 @@
 "use client"
+import { Button } from "@/components/ui/button";
 import {GetNotes} from "@/lib/state/slices/notesSlice";
 import { AppDispatch, RootState } from "@/lib/store";
-import {  useEffect, useState } from "react";
+import Link from "next/link";
+import {  useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { Plus , PenLine} from 'lucide-react';
+
 
 
 export default function Home() {
   const dispatch = useDispatch<AppDispatch>()
-  const { notes } = useSelector((state : RootState) => state.notes)
+  const { notes, odd } = useSelector((state : RootState) => state.notes)
 
   useEffect(() => { 
     const getAllNotes = async() => {
@@ -17,16 +21,38 @@ export default function Home() {
   }, [])
   
   return (
-    <main className="min-h-screen">
-      <button className="bg-slate-600 py-1 px-2">add note</button>
-      <h1>my list of notes</h1>
-      <div>
-        {notes?.map((note: any, index: any) => (
-          <div key={index}>
-            <h1><span>title:</span>{note.title}</h1>
-            <h1><span>description:</span>{note.description}</h1>
+    <main className="min-h-screen mx-20 my-10">
+      <div className="flex flex-col gap-3">
+        <h1 className="text-center font-bold text-xl">my list of notes</h1>
+        <Link href={"/create"}>
+          <Button className="w-2/12">
+            <Plus size={20} />
+          Add Note
+          </Button>
+
+        </Link>
+        
+        <div className="grid grid-cols-8 gap-5 justify-center items-center">
+          {notes?.map((note:any, index:any) => (
+          <div key={index} className="col-span-2 text-center">
+            <div className={`${index % 2 == 0 ? 'bg-noteBg' : 'bg-noteBgOrange'} text-white text-lg py-2 px-3`}>
+                0{index+1}
+            </div>
+            <div className="bg-bodyBg  py-3 px-4 flex flex-col gap-4">
+              <h3 className="font-bold text-lg">{note.title}</h3>
+              <div className="px-4">
+                <p>{note.description}</p>
+              </div>
+              <div className="flex items-end justify-end">
+                <button>
+                  <PenLine className={`${index % 2 == 0 ? 'text-noteBg' : 'text-noteBgOrange'}  font-bold`}/>
+                </button>
+              </div>
+            </div>
           </div>
-        ))}
+
+          ))}
+        </div>
       </div>
     </main>
   );
