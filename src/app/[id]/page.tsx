@@ -6,7 +6,7 @@ const EditNoteId = () => {
   const router = useRouter()
   return (
     <>
-      {/* <h1>edit note id :{params.id}</h1>
+        {/* <h1>edit note id :{params.id}</h1>
         <div onClick={() => router.push('/')}>go to notes page</div> */}
     </>
   )
