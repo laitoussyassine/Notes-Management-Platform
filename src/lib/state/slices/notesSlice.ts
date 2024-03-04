@@ -8,8 +8,12 @@ export interface UserState {
 
 const initialState = {
     notes : [],
-    odd: false,
 } as any
+
+
+
+
+
 
 
 export const GetNotes = createAsyncThunk('notes/GetNotes', async () => {
@@ -42,7 +46,6 @@ const notesSlice = createSlice({
         builder
         .addCase(GetNotes.fulfilled,(state,action)=>{
             state.notes = action.payload
-            state.odd = true,
             console.log(action.payload)
         })
     }

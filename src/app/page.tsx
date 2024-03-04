@@ -11,7 +11,7 @@ import { Plus , PenLine} from 'lucide-react';
 
 export default function Home() {
   const dispatch = useDispatch<AppDispatch>()
-  const { notes, odd } = useSelector((state : RootState) => state.notes)
+  const { notes } = useSelector((state : RootState) => state.notes)
 
   useEffect(() => { 
     const getAllNotes = async() => {
