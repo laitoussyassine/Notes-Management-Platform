@@ -2,8 +2,8 @@
 import { useParams, useRouter } from 'next/navigation'
 
 const EditNoteId = () => {
-    const params = useParams()
-    const router = useRouter()
+  const params = useParams()
+  const router = useRouter()
   return (
     <>
         {/* <h1>edit note id :{params.id}</h1>
