@@ -24,7 +24,6 @@ const AddNotePage = () => {
     e.preventDefault();
     dispatch(AddNote({ title, description }));
     router.push('/')
-
   };
 
   return (
