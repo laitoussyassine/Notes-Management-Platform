@@ -11,7 +11,10 @@ import { useRouter } from 'next/navigation'
 
 export default function Home() {
   const dispatch = useDispatch<AppDispatch>()
-  const { notes } = useSelector((state: RootState) => state.notes)
+
+  const { notes } = useSelector((state : RootState) => state.notes)
+  console.log(notes);
+  
   const router = useRouter()
   useEffect(() => {
     const getAllNotes = async () => {
@@ -28,6 +31,8 @@ export default function Home() {
       console.error("Error deleting note:", error);
     }
   };
+
+  
 
   return (
     <main className="min-h-screen mx-20 my-10">
@@ -53,9 +58,10 @@ export default function Home() {
                   <p>{note.description}</p>
                 </div>
                 <div className="flex items-end justify-end">
-                  <button>
+                  <Link href={`/${note._id}`}>
                     <PenLine className={`${index % 2 == 0 ? 'text-noteBg' : 'text-noteBgOrange'}  font-bold`} />
-                  </button>
+
+                  </Link>
                   <button onClick={() => handleDeleteNote(note._id)}> {/* Utiliser une fonction fléchée pour passer l'argument */}
                     <Trash2 className={`${index % 2 == 0 ? 'text-noteBg' : 'text-noteBgOrange'}  font-bold`} />
                   </button>

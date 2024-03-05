@@ -11,7 +11,7 @@ export async function GET(request: NextRequest, { params }: { params: { id: stri
             return NextResponse.json({ error: 'Note not found' }, { status: 404 });
         }
         
-        return NextResponse.json({ note }, { status: 200 });
+        return NextResponse.json( note );
     } catch (error: any) {
         return NextResponse.json({ error: error.message || 'An error occurred' }, { status: 500 });
     }

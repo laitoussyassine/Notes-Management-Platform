@@ -5,6 +5,8 @@ import { AddNote } from "@/lib/state/slices/notesSlice"
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '@/lib/store';
 import { useRouter } from 'next/navigation';
+import InputForm from '@/components/reusable/InputForm';
+import { Button } from '@/components/ui/button';
 const AddNotePage = () => {
   const router = useRouter()
   const { notes } = useSelector((state: RootState) => state.notes)
@@ -27,30 +29,20 @@ const AddNotePage = () => {
   };
 
   return (
-    <div>
+    <div className='flex flex-col justify-center items-center my-14'>
       <h1>Ajouter une note</h1>
 
-      <div>
+      <div className='w-2/4'>
         <label htmlFor="title">Titre:</label>
-        <input
-          type="text"
-          id="title"
-          value={title}
-          onChange={handleTitleChange}
-          required
-        />
+        <InputForm className={''} value={title}  onChange={handleTitleChange} />
+       
       </div>
-      <div>
+      <div className='w-2/4'>
         <label htmlFor="description">Description:</label>
-        <input
-          type="text"
-          id="description"
-          value={description}
-          onChange={handleDescriptionChange}
-          required
-        />
+        <InputForm className={''} value={description}  onChange={handleDescriptionChange} />
+        
       </div>
-      <button onClick={handleSubmit} >Ajouter la note</button>
+      <Button className='my-4' onClick={handleSubmit} >Ajouter la note</Button>
 
     </div>
   );

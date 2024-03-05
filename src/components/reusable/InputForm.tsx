@@ -1,15 +1,17 @@
-"use client"
-import { Input } from "@/components/ui/input"
-const inputForm = () => {
-  return (
-    <>
-        <div className="bg-slate-800">
-            <Input />
+import { Input, InputProps } from "@/components/ui/input";
+import React from "react";
 
-        </div>
-
-    </>
-  )
+interface InputFormProps extends InputProps {
+  className?: string;
+  value?: any;
 }
 
-export default inputForm
+const InputForm: React.FC<InputFormProps> = ({ className, value, ...restProps }) => {
+  return (
+    <>
+      <Input type="text" className={className} value={value} {...restProps} />
+    </>
+  );
+};
+
+export default InputForm;
