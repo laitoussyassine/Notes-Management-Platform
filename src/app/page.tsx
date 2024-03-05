@@ -12,9 +12,9 @@ import { useRouter } from 'next/navigation'
 export default function Home() {
   const dispatch = useDispatch<AppDispatch>()
 
-  const { notes } = useSelector((state : RootState) => state.notes)
+  const { notes } = useSelector((state: RootState) => state.notes);
   console.log(notes);
-  
+
   const router = useRouter()
   useEffect(() => {
     const getAllNotes = async () => {
@@ -32,7 +32,7 @@ export default function Home() {
     }
   };
 
-  
+
 
   return (
     <main className="min-h-screen mx-20 my-10">
@@ -47,7 +47,7 @@ export default function Home() {
         </Link>
 
         <div className="grid grid-cols-8 gap-5 justify-center items-center">
-          {notes?.map((note: any, index: any) => (
+          {Array.isArray(notes) && notes.map((note: any, index: any) => (
             <div key={index} className="col-span-2 text-center">
               <div className={`${index % 2 == 0 ? 'bg-noteBg' : 'bg-noteBgOrange'} text-white text-lg py-2 px-3`}>
                 0{index + 1}
