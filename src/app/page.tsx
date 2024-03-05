@@ -1,24 +1,33 @@
 "use client"
 import { Button } from "@/components/ui/button";
-import { GetNotes } from "@/lib/state/slices/notesSlice";
+import { GetNotes, DeleteNotes } from "@/lib/state/slices/notesSlice";
 import { AppDispatch, RootState } from "@/lib/store";
 import Link from "next/link";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Plus, PenLine, Trash2 } from 'lucide-react';
-
+import { useRouter } from 'next/navigation'
 
 
 export default function Home() {
   const dispatch = useDispatch<AppDispatch>()
-  const { notes, odd } = useSelector((state: RootState) => state.notes)
-
+  const { notes } = useSelector((state: RootState) => state.notes)
+  const router = useRouter()
   useEffect(() => {
     const getAllNotes = async () => {
       await dispatch(GetNotes());
     }
     getAllNotes();
   }, [dispatch])
+  const handleDeleteNote = async (id: any) => {
+    try {
+      await dispatch(DeleteNotes(id));
+      router.push("/")
+      window.location.reload();
+    } catch (error) {
+      console.error("Error deleting note:", error);
+    }
+  };
 
   return (
     <main className="min-h-screen mx-20 my-10">
@@ -47,7 +56,7 @@ export default function Home() {
                   <button>
                     <PenLine className={`${index % 2 == 0 ? 'text-noteBg' : 'text-noteBgOrange'}  font-bold`} />
                   </button>
-                  <button>
+                  <button onClick={() => handleDeleteNote(note._id)}> {/* Utiliser une fonction fléchée pour passer l'argument */}
                     <Trash2 className={`${index % 2 == 0 ? 'text-noteBg' : 'text-noteBgOrange'}  font-bold`} />
                   </button>
                 </div>
@@ -60,3 +69,5 @@ export default function Home() {
     </main>
   );
 }
+
+
