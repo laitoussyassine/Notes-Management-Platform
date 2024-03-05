@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
  interface notes {
-    id ?: any,
+    id : string,
     title: string,
     description: string,
 }
@@ -18,6 +18,28 @@ export const GetNotes = createAsyncThunk('notes/GetNotes', async () => {
     try {
         const response = await fetch("http://localhost:3000/api/notes", {
             method: "GET",
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        });
+
+        if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+
+        const data = await response.json();
+        return data;
+    } catch (error: any) {
+        const message = error.message || "An error occurred while fetching notes";
+        throw new Error(message);
+    }
+});
+
+type dataId = string
+export const DeleteNotes = createAsyncThunk('notes/DeleteNotes', async (id:dataId) => {
+    try {
+        const response = await fetch(`http://localhost:3000/api/notes/${id}`, {
+            method: "DELETE",
             headers: {
                 'Content-Type': 'application/json',
             },
@@ -90,6 +112,15 @@ export const UpdateNote = createAsyncThunk('notes/UpdateNote', async (note: { id
     }
 })
 
+// export const AddNote = createAsyncThunk<{notes : notes}, notes , { rejectValue: string }>('notes/postNote', async (notes ,{ rejectWithValue}) => {
+//     try {
+//         const res = await axios.post("http://localhost:3000/api/notes",notes)
+//         return res.data
+//     } 
+//         catch (error : any) {
+//             return rejectWithValue(error)
+//             console.log(error)
+//         }})
 const notesSlice = createSlice({
     name: "notes",
     initialState,
@@ -104,6 +135,7 @@ const notesSlice = createSlice({
                 state.notes.push(action.payload);
                 console.log("Note added:", action.payload);
             })
+
             .addCase(getOne.fulfilled, (state, action) => {
                 state.notes = action.payload
                 console.log(action.payload);
@@ -111,7 +143,12 @@ const notesSlice = createSlice({
             })
             .addCase(UpdateNote.fulfilled, (state, action) => {
                 state.notes = action.payload
-            });
+            })
+            .addCase(DeleteNotes.fulfilled, (state, action) => {
+                // Supprimer la note de l'état en fonction de l'ID
+                state.notes = state.notes.filter((note: notes)  => note.id !== action.payload.id);
+                console.log("Note deleted:", action.payload);
+            })
     }
 });
 
