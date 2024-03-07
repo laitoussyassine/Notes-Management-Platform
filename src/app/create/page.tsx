@@ -30,19 +30,20 @@ const AddNotePage = () => {
 
   return (
     <div className='flex flex-col justify-center items-center my-14'>
-      <h1>Ajouter une note</h1>
-
-      <div className='w-2/4'>
-        <label htmlFor="title">Titre:</label>
-        <InputForm className={''} value={title}  onChange={handleTitleChange} />
-       
-      </div>
-      <div className='w-2/4'>
-        <label htmlFor="description">Description:</label>
-        <InputForm className={''} value={description}  onChange={handleDescriptionChange} />
+      <div className='w-2/4 flex flex-col justify-center gap-4 items-center bg-bodyBg rounded-lg py-5'>
+      <h1 className='font-semibold text-noteBg'>Ajouter une note</h1>
+        <div className='w-3/4'>
+          <label htmlFor="title" className='font-semibold'>Titre:</label>
+          <InputForm className={''} value={title}  onChange={handleTitleChange} />
         
+        </div>
+        <div className='w-3/4'>
+          <label htmlFor="description" className='font-semibold'>Description:</label>
+          <InputForm className={'h-24 py-0'} value={description}  onChange={handleDescriptionChange} />
+        </div>
+        <Button className='my-4 bg-noteBg' onClick={handleSubmit} >Ajouter la note</Button>
       </div>
-      <Button className='my-4' onClick={handleSubmit} >Ajouter la note</Button>
+
 
     </div>
   );

@@ -16,7 +16,7 @@ const initialState = {
 
 export const GetNotes = createAsyncThunk('notes/GetNotes', async () => {
     try {
-        const response = await fetch("http://localhost:3000/api/notes", {
+        const response = await fetch("/api/notes", {
             method: "GET",
             headers: {
                 'Content-Type': 'application/json',
@@ -38,7 +38,7 @@ export const GetNotes = createAsyncThunk('notes/GetNotes', async () => {
 type dataId = string
 export const DeleteNotes = createAsyncThunk('notes/DeleteNotes', async (id:dataId) => {
     try {
-        const response = await fetch(`http://localhost:3000/api/notes/${id}`, {
+        const response = await fetch(`/api/notes/${id}`, {
             method: "DELETE",
             headers: {
                 'Content-Type': 'application/json',
@@ -59,7 +59,7 @@ export const DeleteNotes = createAsyncThunk('notes/DeleteNotes', async (id:dataI
 
 export const AddNote = createAsyncThunk('notes/AddNote', async (newNote: { title: string; description: string }) => {
     try {
-        const response = await fetch("http://localhost:3000/api/notes", {
+        const response = await fetch("/api/notes", {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json',
@@ -81,7 +81,7 @@ export const AddNote = createAsyncThunk('notes/AddNote', async (newNote: { title
 
 export const getOne = createAsyncThunk('notes/getOne', async (noteId: {id :any}) => {
     try {
-        const response = await fetch(`http://localhost:3000/api/notes/${noteId.id}`, {
+        const response = await fetch(`/api/notes/${noteId.id}`, {
             method: "GET",
             headers: {
                 'Content-Type': 'application/json',
@@ -97,7 +97,7 @@ export const getOne = createAsyncThunk('notes/getOne', async (noteId: {id :any})
 
 export const UpdateNote = createAsyncThunk('notes/UpdateNote', async (note: { id:any ,title: string; description: string }) => {
     try {
-        const response = await fetch(`http://localhost:3000/api/notes/${note.id}`, {
+        const response = await fetch(`/api/notes/${note.id}`, {
             method: "PUT",
             headers: {
                 'Content-Type': 'application/json',

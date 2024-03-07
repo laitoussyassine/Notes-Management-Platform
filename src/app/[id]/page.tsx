@@ -1,4 +1,6 @@
 "use client"
+import InputForm from '@/components/reusable/InputForm'
+import { Button } from '@/components/ui/button'
 import { getOne, UpdateNote, GetNotes } from '@/lib/state/slices/notesSlice'
 import { AppDispatch, RootState } from '@/lib/store'
 import { useRouter } from 'next/navigation'
@@ -37,9 +39,23 @@ const EditNote = ({ params }: { params: { id: string } }) => {
   return (
 
     <>
-      <input value={title || ""} onChange={(e) => setNote({ ...note, title: e.target.value })} type="text" name="title" />
-      <input value={description || ""} onChange={(e) => setNote({ ...note, description: e.target.value })} type="text" name="description" />
-      <button onClick={handleUpdate}>update</button>
+
+
+      <div className='flex flex-col justify-center items-center my-14'>
+        <div className='w-2/4 flex flex-col justify-center gap-4 items-center bg-bodyBg rounded-lg py-5'>
+          <h1 className='font-semibold text-noteBg'>Ajouter une note</h1>
+          <div className='w-3/4'>
+            <label htmlFor="title" className='font-semibold'>Titre:</label>
+            <InputForm value={title || ""} onChange={(e) => setNote({ ...note, title: e.target.value })} name="title" />
+
+          </div>
+          <div className='w-3/4'>
+            <label htmlFor="description" className='font-semibold'>Description:</label>
+            <InputForm className={'h-24 py-0'} value={description || ""} onChange={(e) => setNote({ ...note, description: e.target.value })} name="description" />
+          </div>
+          <Button className='my-4 bg-noteBg' onClick={handleUpdate} >Update note</Button>
+        </div>
+      </div>
     </>
   )
 }
